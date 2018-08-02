@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" ng-app="BookmarkApp">
+  <head>
+    <meta charset="utf-8">
+    <title>Bookmark'd</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+    <script src="/js/app.js" charset="utf-8"></script>
+    <link href="https://fonts.googleapis.com/css?family=Knewave" rel="stylesheet">
+    <link rel="stylesheet" href="/css/app.css">
+  </head>
+  <body ng-controller= "bookmarksController as ctrl">
+    <div class="container" >
+      <div class="main-content">
+        <div class="category" id="div1">
+          <!-- input new data  form-->
+          <div class="bookmark-create">
+            <form class="" ng-submit="ctrl.createBookmark()">
+              <h1>Bookmark'd</h1>
+              <input type="text" ng-model="ctrl.title" placeholder="Title"/>
+              <input type="text" ng-model="ctrl.url" placeholder="http://"/>
+              <input type="submit" placeholder="CREATE"/>
+            </form> <!--end create new form -->
+          </div>
+        </div>
+        <br/>
+
+        <!-- display data pulled from database -->
+        <div class="category" id="div2" ng-repeat="bookmark in ctrl.bookmarks">
+
+            <div class="sub2">
+              <a href="{{bookmark.url}}" target="_blank">{{bookmark.title}}</a>
+            </div>
+            <div class="sub2 edit-btn">
+              <a href="#" ng-click="ctrl.indexOfEditFormToShow = $index" >Edit</a>
+            </div>
+
+
+            <div class="edit">
+              <!-- Edit form -->
+              <form ng-if="$index === ctrl.indexOfEditFormToShow" ng-submit="ctrl.editBookmark(bookmark)" class="category">
+                <input type="text" ng-model="ctrl.updatedTitle" placeholder="Title">
+                <input type="text" ng-model="ctrl.updatedUrl" placeholder="http://">
+                <input type="submit" name="" value="UPDATE">
+                <button ng-click="ctrl.deleteBookmark(bookmark)">Delete</button>
+              </form> <!-- end edit form -->
+            </div> <!-- end edit div container-->
+        </div> <!-- end book mark display container-->
+      </div><!-- end main-content class -->
+    </div> <!--end container class-->
+
+
+  </body>
+</html>
